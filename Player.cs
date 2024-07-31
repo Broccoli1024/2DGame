@@ -163,7 +163,7 @@ public class Player : MonoBehaviour
         //’n–Ê‚É‚¢‚é‚Æ‚«
         else if (isGround)
         {
-            if (verticalKey > 0)
+            if (verticalKey > 0 )
             {
                 if (!isJump)
                 {

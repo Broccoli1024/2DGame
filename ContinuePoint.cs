@@ -9,8 +9,10 @@ public class ContinuePoint : MonoBehaviour
     [Header("プレイヤー判定")] public PlayerTriggerCheck trigger;
     [Header("スピード")] public float speed = 3.0f;
     [Header("動く幅")] public float moveDis = 3.0f;
+    [Header("強制スクロール")] public bool scroll;
 
     private bool on = false;
+    private bool got = false;
     private float kakudo = 0.0f;
     private Vector3 defaultPos;
     void Start()
@@ -35,7 +37,7 @@ public class ContinuePoint : MonoBehaviour
             on = true;
         }
 
-        if (on)
+        if (on && !got)
         {
             if (kakudo < 180.0f)
             {
@@ -51,7 +53,7 @@ public class ContinuePoint : MonoBehaviour
             }
             else
             {
-                gameObject.SetActive(false);
+                got = true;
                 on = false;
             }
         }

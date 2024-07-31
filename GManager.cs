@@ -32,6 +32,12 @@ public class GManager : MonoBehaviour
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
+
+        if (PlayerPrefs.HasKey("HighScore"))
+        {
+            PlayerPrefs.SetInt("HighScore", 0);
+            PlayerPrefs.Save();
+        }
     }
 
     /// <summary>
@@ -85,6 +91,18 @@ public class GManager : MonoBehaviour
         else
         {
             Debug.Log("オーディオソースが設定されていません");
+        }
+    }
+
+    /// <summary>
+    /// スコアの保存
+    /// </summary>
+    public void SaveScore()
+    {
+        PlayerPrefs.SetInt("CurrentScore", score);
+        if (score > PlayerPrefs.GetInt("HighScore", 0))
+        {
+            PlayerPrefs.SetInt("HighScore", score);
         }
     }
 }

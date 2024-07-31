@@ -5,9 +5,13 @@ public class MoveObject : MonoBehaviour
 {
     [Header("移動経路")] public GameObject[] movePoint;
     [Header("速さ")] public float speed = 1.0f;
+    [Header("周回する")] public bool repeat;
+    [Header("初期位置")] public int firstPoint;
+    [Header("初めから動かない")] public bool isStay;
 
 
     private Rigidbody2D rb;
+    private ObjectCollision oc;
     private int nowPoint = 0;
     private bool returnPoint = false;
     private Vector2 oldPos = Vector2.zero;
@@ -20,6 +24,7 @@ public class MoveObject : MonoBehaviour
         {
             rb.position = movePoint[0].transform.position;
             oldPos = rb.position;
+            nowPoint = firstPoint;
         }
     }
 
@@ -30,7 +35,7 @@ public class MoveObject : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (movePoint != null && movePoint.Length > 1 && rb != null)
+        if (movePoint != null && movePoint.Length > 1 && rb != null && !isStay)
         {
             //通常進行
             if (!returnPoint)
@@ -54,7 +59,14 @@ public class MoveObject : MonoBehaviour
                     //現在地が配列の最後だった場合
                     if (nowPoint + 1 >= movePoint.Length)
                     {
-                        returnPoint = true;
+                        if(!repeat)
+                        {
+                            returnPoint = true;
+                        } 
+                        else
+                        {
+                            nowPoint = 0;
+                        }
                     }
                 }
             }

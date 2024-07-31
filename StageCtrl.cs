@@ -31,6 +31,7 @@ public class StageCtrl : MonoBehaviour
             gameOverObj.SetActive(false);
             stageClearObj.SetActive(false);
             playerObj.transform.position = continuePoint[0].transform.position;
+            GManager.instance.continueNum = 0;
             p = playerObj.GetComponent<Player>();
             if (p == null)
             {
@@ -88,6 +89,7 @@ public class StageCtrl : MonoBehaviour
                     GManager.instance.stageNum = nextStageNum;
                 }
                 GManager.instance.isStageClear = false;
+                GManager.instance.SaveScore();
                 SceneManager.LoadScene("stage" + nextStageNum);
                 doSceneChange = true;
             }
