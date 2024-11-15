@@ -107,6 +107,18 @@ public class StageCtrl : MonoBehaviour
     }
 
     /// <summary>
+    /// ゲームを終了する
+    /// </summary>
+    public void ExitGame()
+    {
+    #if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;//ゲームプレイ終了
+    #else
+        Application.Quit();//ゲームプレイ終了
+    #endif
+    }
+
+    /// <summary>
     /// ステージを切り替えます。
     /// </summary>
     /// <param name="num">ステージ番号</param>

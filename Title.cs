@@ -31,4 +31,13 @@ public class Title : MonoBehaviour
             goNextScene = true;
         }
     }
+
+    public void PressRefresh()
+    {
+        if (!firstPush)
+        {
+            SceneManager.LoadScene(0);
+            firstPush = true;
+        }
+    }
 }

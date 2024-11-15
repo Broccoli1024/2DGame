@@ -2,19 +2,21 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class EndSceneManager : MonoBehaviour
+public class EndSceneManager : PlayFabLogin
 {
     [Header("今回のスコア")] public Text currentScoreText;
     [Header("ハイスコア")]  public Text highScoreText;
     [Header("フェード")] public FadeImage fade;
     [Header("ゲーム終了時に呼ばれるSE")] public AudioClip finishSE;
+    private int currentScore = 0;
+    private bool initialFlag = false;//ログイン後の設定が完了しているか
 
     private bool firstPush = false;
     private bool goNextScene = false;
 
     void Start()
     {
-        int currentScore = PlayerPrefs.GetInt("CurrentScore", 0);
+        currentScore = PlayerPrefs.GetInt("CurrentScore", 0);
         int highScore = PlayerPrefs.GetInt("HighScore", 0);
 
         currentScoreText.text = "Score: " + currentScore;
@@ -40,6 +42,12 @@ public class EndSceneManager : MonoBehaviour
             GManager.instance.RetryGame();
             SceneManager.LoadScene("titleScene");
             goNextScene = true;
+        }
+
+        if (Instance.IsClientLoggedIn && !initialFlag)
+        {
+            SubmitScore(currentScore);
+            initialFlag = true;
         }
     }
 }
